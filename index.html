@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Balbos | Portfolio</title>
+  <link rel="icon" href="smile.png" type="image/png">
+  <style>
+    /* 1. تعريف خط ليمون برش للكلام العربي */
+    @font-face {
+      font-family: 'LemonBrushPersonal';
+      src: url('fonts/lemon-brush-arabic-personal-use-only.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    /* 2. تعريف الخط الجديد للكلام الإنجليزي والأرقام */
+    @font-face {
+      font-family: 'DkCoolCrayon';
+      src: url('fonts/DkCoolCrayon-xJyV.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    /* تعديل طريقة عرض الخلفية لتتحرك لأعلى عند السحب ويمتلئ الفراغ باللون الأخضر */
+    html {
+      background-color: #00b600 !important; /* اللون الأخضر الأساسي للموقع */
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-image: url('https://cdn.phototourl.com/free/2026-06-19-e5adc180-a09d-41cb-85cf-0f667be2818e.png') !important; 
+      background-repeat: no-repeat !important;
+      background-position: top center !important;
+      background-size: 100% auto !important; 
+      background-attachment: scroll !important; /* تجعل الخلفية تصعد لأعلى عند عمل سكرول */
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column; 
+      align-items: center;
+      font-family: 'DkCoolCrayon', 'LemonBrushPersonal', sans-serif !important; 
+      overflow-x: hidden; 
+    }
+
+    /* الحاوية الأولى - شفافة لتظهر الخلفية من ورائها */
+    .main-container {
+      background: transparent !important; 
+      width: 100%;
+      min-height: auto; 
+      padding-top: 40px; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2; 
+    }
+
+    /* حاوية معلومات البروفايل المتناسقة مع الحركة */
+    .header-section {
+      text-align: center;
+      max-width: 360px; 
+      width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+      animation: floatAnimation 3.5s ease-in-out infinite; 
+    }
+
+    /* حجم الصورة الشخصية دائرية */
+    .header-image {
+      width: 160px;           
+      height: 160px;          
+      object-fit: cover;      
+      border-radius: 50%;     
+      border: 3px solid rgba(255, 255, 255, 0.4); 
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);  
+      margin-top: -30px;
+      margin-bottom: 10px; 
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* تنسيق الاسم والنصوص باللون الأبيض النظيف */
+    h1 {
+      font-size: 2.2em !important; 
+      margin: 2px 0;
+      color: #ffffff;
+      font-family: 'DkCoolCrayon', 'LemonBrushPersonal', sans-serif !important;
+    }
+    .desc {
+      margin-bottom: 15px; 
+      color: #ffffff;
+      font-family: 'DkCoolCrayon', 'LemonBrushPersonal', sans-serif !important;
+      line-height: 1.4;
+    }
+
+    /* حاوية الأيقونات */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+    }
+
+    /* الستايل الأساسي للأيقونات */
+    .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 0 !important;
+    }
+
+    /* زر ديسكورد */
+    #discord-btn {
+      width: 50px;
+      height: 50px;
+      background: none !important;
+      border: none !important;
+    }
+    .custom-discord-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* زر إنستغرام */
+    #insta-btn {
+      width: 50px;
+      height: 50px;
+      background: none !important;
+      border: none !important;
+    }
+    .custom-insta-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .icon-btn:hover {
+      transform: scale(1.12) !important;
+    }
+
+    @keyframes floatAnimation {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* --- قسم الأعمال --- */
+    
+    .works-title {
+      max-width: 1100px;
+      width: 85%;
+      font-size: 2.2em !important; 
+      color: #ffffff;
+      text-align: right; 
+      margin: -25px auto 40px auto; 
+      font-family: 'DkCoolCrayon', 'LemonBrushPersonal', sans-serif !important;
+    }
+
+    /* الحاوية الخارجية الكبرى المحددة للعرض وقاصة للزيادات الأفقية */
+    .portfolio-gallery-wrapper {
+      width: 100vw;
+      overflow-x: hidden;
+      padding-bottom: 120px;
+      position: relative;
+      cursor: grab;
+    }
+    
+    .portfolio-gallery-wrapper:active {
+      cursor: grabbing;
+    }
+
+    /* حاوية معرض الأعمال - تم تبطئتها إلى 120s لتصبح فائقة النعومة */
+    .portfolio-gallery {
+      display: flex;
+      width: max-content;
+      gap: 3px; 
+      animation: scrollInfinite 120s linear infinite; 
+      user-select: none;
+    }
+
+    /* ستايل عرض الصورة المدمجة كاملة */
+    .work-item {
+      height: 600px; 
+      width: auto; 
+      object-fit: contain; 
+      border-radius: 12px;
+      box-shadow: none !important; 
+      transition: transform 0.3s ease;
+      cursor: grab; 
+      background-image: none !important; 
+      flex-shrink: 0; 
+      pointer-events: auto;
+      -webkit-user-drag: none; 
+    }
+
+    .work-item:hover {
+      transform: scale(1.02) translateY(-5px) !important;
+    }
+
+    .work-item:active {
+      cursor: grabbing;
+    }
+
+    /* حركة الدوران اللانهائي باتجاه اليسار */
+    @keyframes scrollInfinite {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(50%); 
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="main-container">
+    <div class="header-section">
+      <img src="https://cdn.phototourl.com/free/2026-06-16-5b34c736-9f2b-41f5-946a-60524f111129.jpg" class="header-image" alt="Balbos Image">
+
+      <h1>Balbos</h1>
+      
+      <div class="desc">
+        <span style="font-size: 1.2em;">هلا أنا محمد | Balbos :)</span><br>
+        <span style="font-size: 1.0em; opacity: 0.9;">رسام ومصمم 3D</span>
+      </div>
+
+      <div class="social-links">
+        <a href="https://discord.com/users/1250579826495197229" target="_blank" class="icon-btn" id="discord-btn">
+          <img src="https://cdn.phototourl.com/free/2026-06-18-22f93989-9c95-477f-b50a-3476e759e102.png" class="custom-discord-img" alt="Discord Logo">
+        </a>
+
+        <a href="https://www.instagram.com/balbos__/" target="_blank" class="icon-btn" id="insta-btn">
+          <img src="https://cdn.phototourl.com/free/2026-06-18-8158b8ad-9db9-41b8-a889-62fd11fca6fa.png" class="custom-insta-img" alt="Instagram Logo">
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="works-title">بعض أعمالي :)</div>
+
+  <div class="portfolio-gallery-wrapper" id="wrapper">
+    <div class="portfolio-gallery" id="gallery">
+      <img src="https://cdn.phototourl.com/free/2026-06-19-5e691070-0eb7-4831-b3fe-0490dc7275e3.png" class="work-item" alt="Work 1">
+      <img src="https://cdn.phototourl.com/free/2026-06-19-5e691070-0eb7-4831-b3fe-0490dc7275e3.png" class="work-item" alt="Work 2">
+      <img src="https://cdn.phototourl.com/free/2026-06-19-5e691070-0eb7-4831-b3fe-0490dc7275e3.png" class="work-item" alt="Work 3">
+      <img src="https://cdn.phototourl.com/free/2026-06-19-5e691070-0eb7-4831-b3fe-0490dc7275e3.png" class="work-item" alt="Work 4">
+    </div>
+  </div>
+
+  <script>
+    const gallery = document.getElementById('gallery');
+    const wrapper = document.getElementById('wrapper');
+
+    // تكرار الصور لضمان عدم وجود فراغات أثناء الحركة والسحب
+    const items = gallery.innerHTML;
+    gallery.innerHTML = items + items + items;
+
+    // --- كود السحب والتحريك بالماوس (Drag to Scroll) ---
+    let isDown = false;
+    let startX;
+    let currentTransform = 0;
+
+    wrapper.addEventListener('mousedown', (e) => {
+      isDown = true;
+      const style = window.getComputedStyle(gallery);
+      const matrix = new WebKitCSSMatrix(style.transform);
+      currentTransform = matrix.m41;
+      
+      startX = e.pageX - wrapper.offsetLeft;
+      gallery.style.animation = 'none'; 
+      gallery.style.transform = `translateX(${currentTransform}px)`;
+    });
+
+    wrapper.addEventListener('mouseleave', () => {
+      if (!isDown) return;
+      isDown = false;
+      gallery.style.animation = 'scrollInfinite 120s linear infinite'; 
+    });
+
+    wrapper.addEventListener('mouseup', () => {
+      isDown = false;
+      gallery.style.animation = 'scrollInfinite 120s linear infinite'; 
+    });
+
+    wrapper.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - wrapper.offsetLeft;
+      const walk = (x - startX) * 1.5; 
+      let newTransform = currentTransform + walk;
+      gallery.style.transform = `translateX(${newTransform}px)`;
+    });
+  </script>
+
+</body>
+</html>
